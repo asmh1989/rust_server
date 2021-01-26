@@ -1,0 +1,146 @@
+2021-01-26T11:45:46.799662374+08:00 - Hello, world!
+2021-01-26T14:17:32.276313559+08:00 - result = Err(Tls(InvalidDNSNameError))
+2021-01-26T14:21:03.783306636+08:00 - result = Err(Io(Custom { kind: Other, error: "failed to lookup address information: Name or service not known" }))
+2021-01-26T14:21:51.665885620+08:00 - result = Err(Configuration(InvalidIpv6Address))
+2021-01-26T14:22:07.211703444+08:00 - result = Err(Tls(InvalidDNSNameError))
+2021-01-26T14:24:58.705762074+08:00 - result = Err(Configuration(InvalidIpv6Address))
+2021-01-26T14:32:30.296643940+08:00 - result = Err(Io(Custom { kind: Other, error: "failed to lookup address information: Name or service not known" }))
+2021-01-26T14:32:50.427197174+08:00 - result = Err(Configuration(InvalidIpv6Address))
+2021-01-26T14:33:03.829235551+08:00 - result = Err(Database(MySqlDatabaseError { code: Some("28000"), number: 1045, message: "Access denied for user \'root\'@\'192.168.2.36\' (using password: YES)" }))
+2021-01-26T14:33:29.914816941+08:00 - result = Err(Tls(InvalidDNSNameError))
+2021-01-26T14:33:55.277007693+08:00 - SET sql_mode=(SELECT CONCAT(@@sql_mode, ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION')),time_zone='+00:00',NAMES …; rows: 0, elapsed: 741.230µs
+
+SET
+  sql_mode =(
+    SELECT
+      CONCAT(
+        @ @sql_mode,
+        ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION'
+      )
+  ),
+  time_zone = '+00:00',
+  NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+2021-01-26T14:33:55.277173297+08:00 - result = Ok(())
+2021-01-26T14:34:55.836261889+08:00 - SET sql_mode=(SELECT CONCAT(@@sql_mode, ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION')),time_zone='+00:00',NAMES …; rows: 0, elapsed: 553.792µs
+
+SET
+  sql_mode =(
+    SELECT
+      CONCAT(
+        @ @sql_mode,
+        ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION'
+      )
+  ),
+  time_zone = '+00:00',
+  NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+2021-01-26T14:34:55.836425217+08:00 - result = Ok(())
+2021-01-26T14:39:50.405978224+08:00 - result = Err(Tls(InvalidDNSNameError))
+2021-01-26T14:40:11.470397242+08:00 - result = Err(Tls(InvalidDNSNameError))
+2021-01-26T14:42:06.349154652+08:00 - SET sql_mode=(SELECT CONCAT(@@sql_mode, ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION')),time_zone='+00:00',NAMES …; rows: 0, elapsed: 612.011µs
+
+SET
+  sql_mode =(
+    SELECT
+      CONCAT(
+        @ @sql_mode,
+        ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION'
+      )
+  ),
+  time_zone = '+00:00',
+  NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+2021-01-26T14:42:06.349396537+08:00 - result = Ok(())
+2021-01-26T14:48:27.538837094+08:00 - SET sql_mode=(SELECT CONCAT(@@sql_mode, ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION')),time_zone='+00:00',NAMES …; rows: 0, elapsed: 568.128µs
+
+SET
+  sql_mode =(
+    SELECT
+      CONCAT(
+        @ @sql_mode,
+        ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION'
+      )
+  ),
+  time_zone = '+00:00',
+  NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+2021-01-26T14:48:27.541594687+08:00 - SELECT * FROM users …; rows: 0, elapsed: 895.629µs
+
+SELECT
+  *
+FROM
+  users
+WHERE
+  email = ?
+
+2021-01-26T14:48:27.541791318+08:00 - row = Err(Database(MySqlDatabaseError { code: Some("42S02"), number: 1146, message: "Table \'androidversion.users\' doesn\'t exist" }))
+2021-01-26T14:49:19.833678108+08:00 - SET sql_mode=(SELECT CONCAT(@@sql_mode, ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION')),time_zone='+00:00',NAMES …; rows: 0, elapsed: 637.515µs
+
+SET
+  sql_mode =(
+    SELECT
+      CONCAT(
+        @ @sql_mode,
+        ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION'
+      )
+  ),
+  time_zone = '+00:00',
+  NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+2021-01-26T14:49:19.837155845+08:00 - SELECT * FROM sys_user …; rows: 1, elapsed: 1.668ms
+
+SELECT
+  *
+FROM
+  sys_user
+WHERE
+  username = ?
+
+2021-01-26T14:49:19.837380589+08:00 - row = Ok(MySqlRow { row: Row { storage: b"\x80\0\x13\0\0\0\0\0\0\0\x12sunmh@justsafe.com@ce059eb08c180b4ea4233d4c65af00ec57f6b38d90400f2f6d1f6d9f11db2b67\x14jmfjNfLUHYWx2Kjj1JFx\x12sunmh@justsafe.com\x01\x01\0\0\0\0\0\0\0\x07\xe4\x07\x08\x05\x11\r%\t\xe5\xad\x99\xe6\xb0\x91\xe5\x8d\x8e", values: [Some(2..10), Some(11..29), Some(30..94), Some(95..115), Some(116..134), None, Some(134..135), Some(135..143), Some(143..151), Some(152..161)] }, format: Binary, columns: [MySqlColumn { ordinal: 0, name: user_id, type_info: MySqlTypeInfo { type: LongLong, flags: NOT_NULL | PRIMARY_KEY | AUTO_INCREMENT, char_set: 63, max_size: Some(20) }, flags: Some(NOT_NULL | PRIMARY_KEY | AUTO_INCREMENT) }, MySqlColumn { ordinal: 1, name: username, type_info: MySqlTypeInfo { type: VarString, flags: NOT_NULL | UNIQUE_KEY | NO_DEFAULT_VALUE, char_set: 224, max_size: Some(200) }, flags: Some(NOT_NULL | UNIQUE_KEY | NO_DEFAULT_VALUE) }, MySqlColumn { ordinal: 2, name: password, type_info: MySqlTypeInfo { type: VarString, flags: (empty), char_set: 224, max_size: Some(400) }, flags: Some((empty)) }, MySqlColumn { ordinal: 3, name: salt, type_info: MySqlTypeInfo { type: VarString, flags: (empty), char_set: 224, max_size: Some(80) }, flags: Some((empty)) }, MySqlColumn { ordinal: 4, name: email, type_info: MySqlTypeInfo { type: VarString, flags: (empty), char_set: 224, max_size: Some(400) }, flags: Some((empty)) }, MySqlColumn { ordinal: 5, name: mobile, type_info: MySqlTypeInfo { type: VarString, flags: (empty), char_set: 224, max_size: Some(400) }, flags: Some((empty)) }, MySqlColumn { ordinal: 6, name: status, type_info: MySqlTypeInfo { type: Tiny, flags: (empty), char_set: 63, max_size: Some(4) }, flags: Some((empty)) }, MySqlColumn { ordinal: 7, name: dept_id, type_info: MySqlTypeInfo { type: LongLong, flags: (empty), char_set: 63, max_size: Some(20) }, flags: Some((empty)) }, MySqlColumn { ordinal: 8, name: create_time, type_info: MySqlTypeInfo { type: Datetime, flags: BINARY, char_set: 63, max_size: Some(19) }, flags: Some(BINARY) }, MySqlColumn { ordinal: 9, name: name, type_info: MySqlTypeInfo { type: VarString, flags: (empty), char_set: 224, max_size: Some(800) }, flags: Some((empty)) }], column_names: {user_id: 0, salt: 3, password: 2, email: 4, status: 6, name: 9, username: 1, dept_id: 7, create_time: 8, mobile: 5} })
+2021-01-26T14:57:49.847834396+08:00 - SET sql_mode=(SELECT CONCAT(@@sql_mode, ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION')),time_zone='+00:00',NAMES …; rows: 0, elapsed: 668.804µs
+
+SET
+  sql_mode =(
+    SELECT
+      CONCAT(
+        @ @sql_mode,
+        ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION'
+      )
+  ),
+  time_zone = '+00:00',
+  NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+2021-01-26T14:57:49.851341036+08:00 - SELECT * FROM sys_user …; rows: 1, elapsed: 1.591ms
+
+SELECT
+  *
+FROM
+  sys_user
+WHERE
+  username = ?
+
+2021-01-26T14:57:49.851552397+08:00 - row = User { username: "sunmh@justsafe.com", password: "ce059eb08c180b4ea4233d4c65af00ec57f6b38d90400f2f6d1f6d9f11db2b67", salt: "jmfjNfLUHYWx2Kjj1JFx" }
+2021-01-26T15:06:53.747235711+08:00 - SET sql_mode=(SELECT CONCAT(@@sql_mode, ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION')),time_zone='+00:00',NAMES …; rows: 0, elapsed: 640.381µs
+
+SET
+  sql_mode =(
+    SELECT
+      CONCAT(
+        @ @sql_mode,
+        ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION'
+      )
+  ),
+  time_zone = '+00:00',
+  NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+2021-01-26T15:06:53.750318285+08:00 - SELECT * FROM sys_user …; rows: 1, elapsed: 1.484ms
+
+SELECT
+  *
+FROM
+  sys_user
+WHERE
+  username = ?
+
+2021-01-26T15:06:53.750500921+08:00 - row = "ce059eb08c180b4ea4233d4c65af00ec57f6b38d90400f2f6d1f6d9f11db2b67"

@@ -1,5 +1,13 @@
+#![allow(dead_code)]
+
+use log::info;
+
+mod config;
+mod mysql;
 mod sha;
 
-fn main() {
-    println!("Hello, world!");
+#[actix_web::main]
+async fn main() {
+    config::Config::get_instance();
+    info!("Hello, world!");
 }
