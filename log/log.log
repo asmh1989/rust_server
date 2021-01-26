@@ -144,3 +144,250 @@ WHERE
   username = ?
 
 2021-01-26T15:06:53.750500921+08:00 - row = "ce059eb08c180b4ea4233d4c65af00ec57f6b38d90400f2f6d1f6d9f11db2b67"
+2021-01-26T15:19:35.330273790+08:00 - Hello, world!
+2021-01-26T15:19:35.330639655+08:00 - Starting 8 workers
+2021-01-26T15:19:35.332006685+08:00 - Starting "actix-web-service-0.0.0.0:8080" service on 0.0.0.0:8080
+2021-01-26T15:19:55.633495345+08:00 - /test/post 404 0.304939
+2021-01-26T15:20:07.018318738+08:00 - test response data = {
+     "msgtype": "markdown",
+     "markdown": {
+         "title":"杭州天气 打包",
+         "text": "#### 杭州天气 @150XXXXXXXX \n> 9度，西北风1级，空气良89，相对温度73%\n> ![screenshot](https://img.alicdn.com/tfs/TB1NwmBEL9TBuNjy1zbXXXpepXa-2400-1218.png)\n> ###### 10点20分发布 [天气](https://www.dingtalk.com) \n @孙民华"
+     },
+      "at": {
+          "atMobiles": [
+              "18094603771"
+          ],
+          "isAtAll": false
+      }
+ }
+2021-01-26T15:20:07.018742482+08:00 - /test/post 200 0.948626
+2021-01-26T16:31:34.892430773+08:00 - Hello, world!
+2021-01-26T16:34:23.148939071+08:00 - Hello, world!
+2021-01-26T16:34:23.149358943+08:00 - Starting 8 workers
+2021-01-26T16:34:23.150731172+08:00 - Starting "actix-web-service-0.0.0.0:8080" service on 0.0.0.0:8080
+2021-01-26T16:34:41.478777033+08:00 - test response data = {
+     "msgtype": "markdown",
+     "markdown": {
+         "title":"杭州天气 打包",
+         "text": "#### 杭州天气 @150XXXXXXXX \n> 9度，西北风1级，空气良89，相对温度73%\n> ![screenshot](https://img.alicdn.com/tfs/TB1NwmBEL9TBuNjy1zbXXXpepXa-2400-1218.png)\n> ###### 10点20分发布 [天气](https://www.dingtalk.com) \n @孙民华"
+     },
+      "at": {
+          "atMobiles": [
+              "18094603771"
+          ],
+          "isAtAll": false
+      }
+ }
+2021-01-26T16:34:41.479105500+08:00 - /test/post 200 0.675491
+2021-01-26T16:34:53.276527425+08:00 - / 405 0.569427
+2021-01-26T16:35:04.687470408+08:00 - / 200 0.494969
+2021-01-26T16:35:11.376400601+08:00 - /login 302 1.496382
+2021-01-26T16:35:11.388868164+08:00 - / 200 0.357551
+2021-01-26T16:39:51.261924795+08:00 - SIGINT received, exiting
+2021-01-26T16:39:51.262348926+08:00 - Accepting connections on 0.0.0.0:8080 has been paused
+2021-01-26T16:40:15.460222469+08:00 - Hello, world!
+2021-01-26T16:40:15.460602172+08:00 - Starting 8 workers
+2021-01-26T16:40:15.462162841+08:00 - Starting "actix-web-service-0.0.0.0:8080" service on 0.0.0.0:8080
+2021-01-26T16:40:28.701516084+08:00 - /login 404 0.320036
+2021-01-26T16:40:37.323425185+08:00 - /jpm/login 302 1.088593
+2021-01-26T16:40:37.333711686+08:00 - / 404 0.413365
+2021-01-26T16:40:45.117874674+08:00 - /jpm/login 302 0.941225
+2021-01-26T16:40:45.128914801+08:00 - / 404 0.344700
+2021-01-26T16:40:58.546385870+08:00 - /jpm 404 0.566593
+2021-01-26T16:41:01.166541680+08:00 - /jpm 404 0.631860
+2021-01-26T16:42:31.754967780+08:00 - / 404 0.542565
+2021-01-26T16:42:37.161144894+08:00 - test response data = {
+     "msgtype": "markdown",
+     "markdown": {
+         "title":"杭州天气 打包",
+         "text": "#### 杭州天气 @150XXXXXXXX \n> 9度，西北风1级，空气良89，相对温度73%\n> ![screenshot](https://img.alicdn.com/tfs/TB1NwmBEL9TBuNjy1zbXXXpepXa-2400-1218.png)\n> ###### 10点20分发布 [天气](https://www.dingtalk.com) \n @孙民华"
+     },
+      "at": {
+          "atMobiles": [
+              "18094603771"
+          ],
+          "isAtAll": false
+      }
+ }
+2021-01-26T16:42:37.161460015+08:00 - /test/post 200 0.594313
+2021-01-26T16:43:22.302413237+08:00 - /jpm/login 302 1.154777
+2021-01-26T16:43:22.312440201+08:00 - / 404 0.285153
+2021-01-26T16:43:49.860058915+08:00 - Hello, world!
+2021-01-26T16:43:49.860430205+08:00 - Starting 8 workers
+2021-01-26T16:43:49.862877719+08:00 - Starting "actix-web-service-0.0.0.0:8080" service on 0.0.0.0:8080
+2021-01-26T16:44:40.291679402+08:00 - /jpm/login 302 0.914651
+2021-01-26T16:44:40.300387595+08:00 - / 404 0.380705
+2021-01-26T16:44:59.264935200+08:00 - Hello, world!
+2021-01-26T16:44:59.265456887+08:00 - Starting 8 workers
+2021-01-26T16:44:59.266604610+08:00 - Starting "actix-web-service-0.0.0.0:8080" service on 0.0.0.0:8080
+2021-01-26T16:45:01.689343624+08:00 - /jpm/login 302 0.548827
+2021-01-26T16:45:01.701399148+08:00 - /jpm 404 0.209099
+2021-01-26T16:48:28.659994235+08:00 - Hello, world!
+2021-01-26T16:48:45.921295489+08:00 - Hello, world!
+2021-01-26T16:48:45.921691142+08:00 - Starting 8 workers
+2021-01-26T16:48:45.925441991+08:00 - Starting "actix-web-service-0.0.0.0:8080" service on 0.0.0.0:8080
+2021-01-26T16:48:52.199434136+08:00 - /jpm/login 302 0.685793
+2021-01-26T16:48:52.207258201+08:00 - /jpm 200 0.263539
+2021-01-26T16:55:09.153140720+08:00 - Hello, world!
+2021-01-26T16:55:09.153608988+08:00 - Starting 8 workers
+2021-01-26T16:55:09.155507487+08:00 - Starting "actix-web-service-0.0.0.0:8080" service on 0.0.0.0:8080
+2021-01-26T16:55:17.442127095+08:00 - /jpm/login 302 0.710425
+2021-01-26T16:55:17.452961989+08:00 - /jpm 200 0.211331
+2021-01-26T16:55:38.783119387+08:00 - Hello, world!
+2021-01-26T16:55:38.783491456+08:00 - Starting 8 workers
+2021-01-26T16:55:38.786788155+08:00 - Starting "actix-web-service-0.0.0.0:8080" service on 0.0.0.0:8080
+2021-01-26T16:55:41.193192248+08:00 - /jpm/login 400 0.543002
+2021-01-26T16:58:12.623636518+08:00 - Hello, world!
+2021-01-26T16:58:12.624097094+08:00 - Starting 8 workers
+2021-01-26T16:58:12.628747883+08:00 - Starting "actix-web-service-0.0.0.0:8080" service on 0.0.0.0:8080
+2021-01-26T16:58:14.827512474+08:00 - /jpm/login 200 0.973955
+2021-01-26T16:59:15.272684002+08:00 - /jpm/login 302 1.306771
+2021-01-26T16:59:15.284627618+08:00 - /jpm 404 0.424692
+2021-01-26T17:00:46.617767964+08:00 - Hello, world!
+2021-01-26T17:00:46.618281765+08:00 - Starting 8 workers
+2021-01-26T17:00:46.620398635+08:00 - Starting "actix-web-service-0.0.0.0:8080" service on 0.0.0.0:8080
+2021-01-26T17:00:48.580652808+08:00 - /jpm/login 302 0.863198
+2021-01-26T17:00:48.588216135+08:00 - /jpm 200 0.389505
+2021-01-26T17:01:09.956297584+08:00 - /jpm 200 0.379095
+2021-01-26T17:01:10.151417593+08:00 - /favicon.ico 404 0.368776
+2021-01-26T17:20:32.038106996+08:00 - Hello, world!
+2021-01-26T17:20:32.038585641+08:00 - Starting 8 workers
+2021-01-26T17:20:32.040432013+08:00 - Starting "actix-web-service-0.0.0.0:8080" service on 0.0.0.0:8080
+2021-01-26T17:22:34.477697563+08:00 - Hello, world!
+2021-01-26T17:22:34.478141917+08:00 - Starting 8 workers
+2021-01-26T17:22:34.480518771+08:00 - Starting "actix-web-service-0.0.0.0:8080" service on 0.0.0.0:8080
+2021-01-26T17:25:47.474555777+08:00 - Hello, world!
+2021-01-26T17:25:47.474989363+08:00 - Starting 8 workers
+2021-01-26T17:25:47.478731242+08:00 - Starting "actix-web-service-0.0.0.0:8080" service on 0.0.0.0:8080
+2021-01-26T17:30:02.523577948+08:00 - SET sql_mode=(SELECT CONCAT(@@sql_mode, ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION')),time_zone='+00:00',NAMES …; rows: 0, elapsed: 575.756µs
+
+SET
+  sql_mode =(
+    SELECT
+      CONCAT(
+        @ @sql_mode,
+        ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION'
+      )
+  ),
+  time_zone = '+00:00',
+  NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+2021-01-26T17:30:02.523833860+08:00 - mysql init success!
+2021-01-26T17:30:02.524410420+08:00 - Starting 8 workers
+2021-01-26T17:30:02.529046343+08:00 - Starting "actix-web-service-0.0.0.0:8080" service on 0.0.0.0:8080
+2021-01-26T17:30:07.237688175+08:00 - SELECT * FROM sys_user …; rows: 1, elapsed: 2.426ms
+
+SELECT
+  *
+FROM
+  sys_user
+WHERE
+  username = ?
+
+2021-01-26T17:30:07.239602480+08:00 - /jpm/login 302 8.776715
+2021-01-26T17:30:07.251267459+08:00 - /jpm 200 0.206464
+2021-01-26T17:30:17.999876293+08:00 - SELECT * FROM sys_user …; rows: 1, elapsed: 1.666ms
+
+SELECT
+  *
+FROM
+  sys_user
+WHERE
+  username = ?
+
+2021-01-26T17:30:18.002201269+08:00 - /jpm/login 200 10.721013
+2021-01-26T17:30:28.958197431+08:00 - SELECT * FROM sys_user …; rows: 1, elapsed: 1.305ms
+
+SELECT
+  *
+FROM
+  sys_user
+WHERE
+  username = ?
+
+2021-01-26T17:30:28.960309132+08:00 - /jpm/login 302 8.111474
+2021-01-26T17:30:28.971973347+08:00 - /jpm 200 0.468036
+2021-01-26T17:31:04.198097340+08:00 - SELECT * FROM sys_user …; rows: 1, elapsed: 1.433ms
+
+SELECT
+  *
+FROM
+  sys_user
+WHERE
+  username = ?
+
+2021-01-26T17:31:04.200023194+08:00 - /jpm/login 200 8.421285
+2021-01-26T17:34:03.168179642+08:00 - SET sql_mode=(SELECT CONCAT(@@sql_mode, ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION')),time_zone='+00:00',NAMES …; rows: 0, elapsed: 586.211µs
+
+SET
+  sql_mode =(
+    SELECT
+      CONCAT(
+        @ @sql_mode,
+        ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION'
+      )
+  ),
+  time_zone = '+00:00',
+  NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+2021-01-26T17:34:03.168398813+08:00 - mysql init success!
+2021-01-26T17:34:03.168854030+08:00 - Starting 8 workers
+2021-01-26T17:34:03.173568184+08:00 - Starting "actix-web-service-0.0.0.0:8080" service on 0.0.0.0:8080
+2021-01-26T17:34:07.475940370+08:00 - SELECT * FROM sys_user …; rows: 1, elapsed: 1.854ms
+
+SELECT
+  *
+FROM
+  sys_user
+WHERE
+  username = ?
+
+2021-01-26T17:34:07.476794611+08:00 - /jpm/login 200 5.456880
+2021-01-26T17:35:21.335495117+08:00 - SET sql_mode=(SELECT CONCAT(@@sql_mode, ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION')),time_zone='+00:00',NAMES …; rows: 0, elapsed: 578.608µs
+
+SET
+  sql_mode =(
+    SELECT
+      CONCAT(
+        @ @sql_mode,
+        ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION'
+      )
+  ),
+  time_zone = '+00:00',
+  NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+2021-01-26T17:35:21.335714909+08:00 - mysql init success!
+2021-01-26T17:35:21.336121611+08:00 - Starting 8 workers
+2021-01-26T17:35:21.337861487+08:00 - Starting "actix-web-service-0.0.0.0:8080" service on 0.0.0.0:8080
+2021-01-26T17:35:23.992158883+08:00 - SELECT * FROM sys_user …; rows: 1, elapsed: 2.975ms
+
+SELECT
+  *
+FROM
+  sys_user
+WHERE
+  username = ?
+
+2021-01-26T17:35:23.994114561+08:00 - /jpm/login 200 10.929097
+2021-01-26T17:37:19.834988022+08:00 - SELECT * FROM sys_user …; rows: 1, elapsed: 1.581ms
+
+SELECT
+  *
+FROM
+  sys_user
+WHERE
+  username = ?
+
+2021-01-26T17:37:19.835935869+08:00 - /jpm/login 302 6.817759
+2021-01-26T17:37:19.861562321+08:00 - /jpm 200 0.233227
+2021-01-26T17:37:24.378465311+08:00 - SELECT * FROM sys_user …; rows: 1, elapsed: 1.421ms
+
+SELECT
+  *
+FROM
+  sys_user
+WHERE
+  username = ?
+
+2021-01-26T17:37:24.380210598+08:00 - /jpm/login 200 8.331133
