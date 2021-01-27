@@ -6,7 +6,7 @@ use actix_web::{
     middleware::Logger,
     post, web, App, Error, HttpRequest, HttpResponse, HttpServer, Responder,
 };
-use http_response::{response_error, response_ok};
+use http_response::{response_error, response_ok, response_success};
 use log::info;
 use params::LoginParams;
 use rand::Rng;
@@ -46,7 +46,7 @@ async fn login(id: Identity, params: web::Json<LoginParams>) -> HttpResponse {
     match result {
         Ok(_) => {
             id.remember(params.username.clone());
-            HttpResponse::Found().header("location", "/jpm").finish()
+            response_success("登录成功")
         }
         Err(err) => response_error(err),
     }
@@ -54,7 +54,7 @@ async fn login(id: Identity, params: web::Json<LoginParams>) -> HttpResponse {
 
 async fn logout(id: Identity) -> HttpResponse {
     id.forget();
-    HttpResponse::Found().header("location", "/jpm").finish()
+    response_success("退出成功")
 }
 
 fn post_error(err: JsonPayloadError, _: &HttpRequest) -> Error {
@@ -88,7 +88,7 @@ async fn main() -> std::io::Result<()> {
                             .data(web::JsonConfig::default().error_handler(post_error))
                             .route(web::post().to(login)),
                     )
-                    .service(web::resource("/logout").to(logout)),
+                    .service(web::resource("/logout").route(web::post().to(logout))),
             )
     })
     .bind(format!("0.0.0.0:{}", 8080))?
