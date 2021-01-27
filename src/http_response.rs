@@ -21,7 +21,7 @@ pub fn response_success(msg: &str) -> HttpResponse {
         .body(serde_json::to_string(&MyHttpReponse::Ok(json!({ "msg": msg }))).unwrap())
 }
 
-pub fn response_error(msg: String) -> HttpResponse {
+pub fn response_error(msg: &str) -> HttpResponse {
     HttpResponse::Ok()
         .content_type("application/json")
         .body(serde_json::to_string(&MyHttpReponse::Error(json!({ "msg": msg }))).unwrap())

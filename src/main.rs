@@ -2,16 +2,18 @@
 
 use actix_identity::{CookieIdentityPolicy, Identity, IdentityService};
 use actix_web::{
-    error::{InternalError, JsonPayloadError},
+    error::{InternalError, JsonPayloadError, QueryPayloadError},
     middleware::Logger,
     post, web, App, Error, HttpRequest, HttpResponse, HttpServer, Responder,
 };
+use api::project::ProjectApi;
 use http_response::{response_error, response_ok, response_success};
 use log::info;
 use params::LoginParams;
 use rand::Rng;
 use serde_json::Value;
 
+mod api;
 mod config;
 mod http_response;
 mod mysql;
@@ -48,7 +50,7 @@ async fn login(id: Identity, params: web::Json<LoginParams>) -> HttpResponse {
             id.remember(params.username.clone());
             response_success("登录成功")
         }
-        Err(err) => response_error(err),
+        Err(err) => response_error(&err),
     }
 }
 
@@ -59,7 +61,12 @@ async fn logout(id: Identity) -> HttpResponse {
 
 fn post_error(err: JsonPayloadError, _: &HttpRequest) -> Error {
     let res = format!("{}", err);
-    InternalError::from_response(err, response_error(res)).into()
+    InternalError::from_response(err, response_error(&res)).into()
+}
+
+fn query_error(err: QueryPayloadError, _: &HttpRequest) -> Error {
+    let res = format!("{}", err);
+    InternalError::from_response(err, response_error(&res)).into()
 }
 
 #[actix_web::main]
@@ -88,7 +95,15 @@ async fn main() -> std::io::Result<()> {
                             .data(web::JsonConfig::default().error_handler(post_error))
                             .route(web::post().to(login)),
                     )
-                    .service(web::resource("/logout").route(web::post().to(logout))),
+                    .service(web::resource("/logout").route(web::post().to(logout)))
+                    .service(
+                        web::resource("/project/list")
+                            .app_data(
+                                // change query extractor configuration
+                                web::QueryConfig::default().error_handler(query_error),
+                            )
+                            .to(ProjectApi::query),
+                    ),
             )
     })
     .bind(format!("0.0.0.0:{}", 8080))?
