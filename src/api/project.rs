@@ -3,8 +3,13 @@ use actix_web::{web, HttpResponse};
 use chrono::{DateTime, Utc};
 use log::info;
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 
-use crate::http_response::{response_error, response_success};
+use crate::{
+    http_response::{response_error, response_ok},
+    mysql::{count, sql_page_str},
+    mysql_query, result_err,
+};
 
 #[derive(sqlx::FromRow, Debug, Serialize, Deserialize, Clone)]
 pub struct Project {
@@ -29,7 +34,7 @@ pub struct ProjectData {
     #[serde(rename = "pageSize")]
     pub page_size: u32,
     #[serde(rename = "pageTotal")]
-    pub total: u32,
+    pub total: u64,
     #[serde(rename = "list")]
     pub page_list: Vec<Project>,
 }
@@ -42,6 +47,37 @@ pub struct Info {
 
 pub struct ProjectApi {}
 
+#[inline]
+async fn _query(limit: u32, page: u32) -> Result<Value, String> {
+    let sql = sql_page_str(
+        r#"
+    select project_id, no, name, status, create_time, create_user, update_time, update_user, version_svn_url
+    from tb_project where is_delete is null  or  is_delete != 'Y' and name is not null
+    order by project_id desc 
+            "#,
+        limit,
+        page,
+    )?;
+
+    let mut data: Vec<Project> = Vec::new();
+
+    let count = count(
+        "SELECT COUNT(project_id) FROM tb_project 
+        where is_delete is null  or  is_delete != 'Y' and name is not null",
+    )
+    .await?;
+
+    mysql_query!(Project, data, &sql)?;
+
+    Ok(serde_json::to_value(ProjectData {
+        current_page: page,
+        page_size: limit,
+        total: count,
+        page_list: data,
+    })
+    .map_err(result_err!())?)
+}
+
 impl ProjectApi {
     pub async fn query(id: Identity, info: web::Query<Info>) -> HttpResponse {
         info!("query info {:?}!", info);
@@ -49,7 +85,10 @@ impl ProjectApi {
         if id.identity().is_none() {
             response_error("请先登录")
         } else {
-            response_success("success")
+            match _query(info.limit, info.page).await {
+                Ok(d) => response_ok(d),
+                Err(err) => response_error(&err),
+            }
         }
     }
 }
