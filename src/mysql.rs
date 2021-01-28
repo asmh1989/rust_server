@@ -71,6 +71,25 @@ pub async fn execute(sql: &str) -> Result<(), String> {
     Ok(())
 }
 
+#[macro_export]
+macro_rules! mysql_find_one {
+    ($x:ty, $s:expr) => {{
+        let conn = crate::mysql::get_instance().clone();
+        let result = sqlx::query_as($s).fetch_one(&conn).await;
+        match result {
+            Ok(row) => {
+                let (value,): ($x,) = row;
+                Ok(value)
+            }
+            Err(err) => {
+                info!("err = {}", err);
+                let e = format!("{:?}", err);
+                Err(e)
+            }
+        }
+    }};
+}
+
 pub fn sql_page_str(sql: &str, limit: u32, page: u32) -> Result<String, String> {
     if limit < 1 || page < 1 {
         return Err("请确保每页大小和页数都大于".to_string());
@@ -87,9 +106,6 @@ pub fn sql_page_str(sql: &str, limit: u32, page: u32) -> Result<String, String> 
 macro_rules! mysql_query {
     ($x:ty, $v:ident, $s:expr) => {{
         let conn = crate::mysql::get_instance().clone();
-
-        // let offset = (page - 1) * limit;
-
         let result = sqlx::query_as::<_, $x>($s).fetch_all(&conn).await;
         match result {
             Ok(list) => {
@@ -122,6 +138,20 @@ mod tests {
         config::init_config();
         // 数据库初始化
         let _ = crate::mysql::init(crate::mysql::URL).await;
+    }
+
+    #[actix_rt::test]
+    async fn test_mysql_find_one() {
+        init().await;
+
+        let sql = format!(
+            "select name from sys_user where username = '{}'",
+            "sunmh@justsafe.com"
+        );
+
+        let result = mysql_find_one!(String, &sql);
+
+        info!("result = {:?}", result);
     }
 
     #[actix_rt::test]

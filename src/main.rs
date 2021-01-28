@@ -6,7 +6,7 @@ use actix_web::{
     middleware::Logger,
     post, web, App, Error, HttpRequest, HttpResponse, HttpServer, Responder,
 };
-use api::project::ProjectApi;
+use api::project::{self};
 use http_response::{response_error, response_ok, response_success};
 use log::info;
 use params::LoginParams;
@@ -19,16 +19,7 @@ mod http_response;
 mod mysql;
 mod params;
 mod sha;
-
-#[macro_export]
-macro_rules! result_err {
-    () => {
-        |err| {
-            info!("err = {}", err);
-            format!("{:?}", err)
-        }
-    };
-}
+mod utils;
 
 #[post("/test/post")]
 async fn hello(req_body: String) -> impl Responder {
@@ -81,6 +72,8 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new()
             .wrap(Logger::new("%U %s %D"))
+            .app_data(web::JsonConfig::default().error_handler(post_error))
+            .app_data(web::QueryConfig::default().error_handler(query_error))
             .wrap(IdentityService::new(
                 CookieIdentityPolicy::new(&private_key)
                     .name("JSESSIONID")
@@ -90,20 +83,11 @@ async fn main() -> std::io::Result<()> {
             .service(web::resource("/jpm").route(web::get().to(index)))
             .service(
                 web::scope("/jpm")
-                    .service(
-                        web::resource("/login")
-                            .data(web::JsonConfig::default().error_handler(post_error))
-                            .route(web::post().to(login)),
-                    )
+                    .service(web::resource("/login").route(web::post().to(login)))
                     .service(web::resource("/logout").route(web::post().to(logout)))
-                    .service(
-                        web::resource("/project/list")
-                            .app_data(
-                                // change query extractor configuration
-                                web::QueryConfig::default().error_handler(query_error),
-                            )
-                            .to(ProjectApi::query),
-                    ),
+                    .service(project::update)
+                    .service(project::delete)
+                    .service(project::query),
             )
     })
     .bind(format!("0.0.0.0:{}", 8080))?
