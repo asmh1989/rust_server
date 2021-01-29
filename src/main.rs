@@ -6,7 +6,10 @@ use actix_web::{
     middleware::Logger,
     post, web, App, Error, HttpRequest, HttpResponse, HttpServer, Responder,
 };
-use api::project::{self};
+use api::{
+    mdm45,
+    project::{self},
+};
 use http_response::{response_error, response_ok, response_success};
 use log::info;
 use params::LoginParams;
@@ -87,7 +90,10 @@ async fn main() -> std::io::Result<()> {
                     .service(web::resource("/logout").route(web::post().to(logout)))
                     .service(project::update)
                     .service(project::delete)
-                    .service(project::query),
+                    .service(project::query)
+                    .service(mdm45::update)
+                    .service(mdm45::delete)
+                    .service(mdm45::query),
             )
     })
     .bind(format!("0.0.0.0:{}", 8080))?
