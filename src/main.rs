@@ -6,10 +6,7 @@ use actix_web::{
     middleware::Logger,
     post, web, App, Error, HttpRequest, HttpResponse, HttpServer, Responder,
 };
-use api::{
-    mdm45,
-    project::{self},
-};
+
 use http_response::{response_error, response_ok, response_success};
 use log::info;
 use params::LoginParams;
@@ -88,12 +85,12 @@ async fn main() -> std::io::Result<()> {
                 web::scope("/jpm")
                     .service(web::resource("/login").route(web::post().to(login)))
                     .service(web::resource("/logout").route(web::post().to(logout)))
-                    .service(project::update)
-                    .service(project::delete)
-                    .service(project::query)
-                    .service(mdm45::update)
-                    .service(mdm45::delete)
-                    .service(mdm45::query),
+                    // .service(project::update)
+                    // .service(project::delete)
+                    // .service(project::query)
+                    .service(api::update)
+                    .service(api::delete)
+                    .service(api::query),
             )
     })
     .bind(format!("0.0.0.0:{}", 8080))?
