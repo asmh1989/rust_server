@@ -85,9 +85,6 @@ async fn main() -> std::io::Result<()> {
                 web::scope("/jpm")
                     .service(web::resource("/login").route(web::post().to(login)))
                     .service(web::resource("/logout").route(web::post().to(logout)))
-                    // .service(project::update)
-                    // .service(project::delete)
-                    // .service(project::query)
                     .service(api::update)
                     .service(api::delete)
                     .service(api::query),
