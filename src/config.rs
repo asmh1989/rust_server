@@ -4,6 +4,8 @@ use std::sync::Mutex;
 use once_cell::sync::OnceCell;
 use tokio::runtime::Runtime;
 
+use crate::api;
+
 #[derive(Clone, Debug)]
 pub struct Config {
     pub ip: String,
@@ -13,6 +15,7 @@ static RUNTIME: OnceCell<Runtime> = OnceCell::new();
 
 pub fn init_config() {
     log4rs::init_file("config/log4rs.yaml", Default::default()).unwrap();
+    api::init();
     let _ = RUNTIME.set(Runtime::new().unwrap()).unwrap();
 }
 

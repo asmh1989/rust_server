@@ -2,17 +2,32 @@ pub mod mdm45;
 pub mod page_base;
 pub mod project;
 
+use std::{collections::HashMap, sync::Arc};
+
 use crate::http_response::{response_error, response_ok, response_success};
 use crate::mysql_find_one;
 use actix_identity::Identity;
 use actix_web::{delete, get, post, web, HttpResponse, Result};
 use log::info;
+use once_cell::sync::OnceCell;
 use page_base::{NotFoundPage, PageBase};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
 use self::mdm45::Mdm45Page;
 use self::project::ProjectPage;
+
+static PAGES: OnceCell<HashMap<String, Arc<dyn PageBase + Send + Sync>>> = OnceCell::new();
+pub fn init() {
+    let mut map: HashMap<String, Arc<dyn PageBase + Send + Sync>> = HashMap::new();
+    map.insert("project".to_string(), Arc::new(ProjectPage));
+    map.insert("mdm45".to_string(), Arc::new(Mdm45Page));
+    let _ = PAGES.set(map);
+}
+
+pub fn get_page() -> &'static HashMap<String, Arc<dyn PageBase + Send + Sync>> {
+    PAGES.get().unwrap()
+}
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ListData<T> {
@@ -49,27 +64,27 @@ pub async fn check_user(id: Identity) -> Result<String, String> {
 }
 
 #[inline]
-async fn _query(mode: &str, limit: u32, page: u32) -> Result<Value, String> {
-    match mode {
-        "project" => ProjectPage::query(limit, page).await,
-        "mdm45" => Mdm45Page::query(limit, page).await,
-        _ => NotFoundPage::query(limit, page).await,
+async fn _query(mode: &str, limit: u32, index: u32) -> Result<Value, String> {
+    let page = get_page();
+    match page.get(mode).clone() {
+        Some(p) => p.query(limit, index).await,
+        None => NotFoundPage.query(limit, index).await,
     }
 }
 
 pub async fn _update(mode: &str, user: &str, body: &str) -> Result<(), String> {
-    match mode {
-        "project" => ProjectPage::update(user, body).await,
-        "mdm45" => Mdm45Page::update(user, body).await,
-        _ => NotFoundPage::update(user, body).await,
+    let page = get_page();
+    match page.get(mode).clone() {
+        Some(p) => p.update(user, body).await,
+        None => NotFoundPage.update(user, body).await,
     }
 }
 
 pub async fn _delete(mode: &str, user: &str, id: u32) -> Result<(), String> {
-    match mode {
-        "project" => ProjectPage::delete(user, id).await,
-        "mdm45" => Mdm45Page::delete(user, id).await,
-        _ => NotFoundPage::delete(user, id).await,
+    let page = get_page();
+    match page.get(mode).clone() {
+        Some(p) => p.delete(user, id).await,
+        None => NotFoundPage.delete(user, id).await,
     }
 }
 

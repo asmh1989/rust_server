@@ -32,16 +32,16 @@ pub struct Mdm45Page;
 
 #[async_trait]
 impl PageBase for Mdm45Page {
-    async fn query(limit: u32, page: u32) -> Result<Value, String> {
+    async fn query(&self, limit: u32, page: u32) -> Result<Value, String> {
         _query(limit, page).await
     }
 
-    async fn update(user: &str, params: &str) -> Result<(), String> {
+    async fn update(&self, user: &str, params: &str) -> Result<(), String> {
         let v = serde_json::from_str::<Version>(params).map_err(result_err!())?;
         _update(user, &v).await
     }
 
-    async fn delete(user: &str, id: u32) -> Result<(), String> {
+    async fn delete(&self, user: &str, id: u32) -> Result<(), String> {
         _delete(user, id).await
     }
 }
