@@ -32,6 +32,7 @@ pub struct Mdm45Page;
 
 #[async_trait]
 impl PageBase for Mdm45Page {
+    #[inline]
     async fn query(&self, limit: u32, page: u32) -> Result<Value, String> {
         _query(limit, page).await
     }
@@ -117,39 +118,3 @@ pub async fn _delete(user: &str, id: u32) -> Result<(), String> {
 
     Ok(())
 }
-
-// #[get("/mdm45/list")]
-// pub async fn query(id: Identity, info: web::Query<QueryInfo>) -> HttpResponse {
-//     info!("query info {:?}!", info);
-
-//     match check_user(id).await {
-//         Ok(_) => match _query(info.limit, info.page).await {
-//             Ok(d) => response_ok(d),
-//             Err(err) => response_error(&err),
-//         },
-//         Err(err) => response_error(&err),
-//     }
-// }
-
-// #[post("/mdm45/update")]
-// pub async fn update(id: Identity, params: web::Json<Version>) -> HttpResponse {
-//     info!("update mdm45 = {:?}", params);
-//     match check_user(id).await {
-//         Ok(user) => match _update(&user, &params).await {
-//             Ok(_) => response_success("成功"),
-//             Err(err) => response_error(&err),
-//         },
-//         Err(err) => response_error(&err),
-//     }
-// }
-
-// #[delete("/mdm45/delete/{id}")]
-// pub async fn delete(id: Identity, path: web::Path<(u32,)>) -> HttpResponse {
-//     match check_user(id).await {
-//         Ok(user) => match _delete(&user, path.into_inner().0).await {
-//             Ok(_) => response_success("成功"),
-//             Err(err) => response_error(&err),
-//         },
-//         Err(err) => response_error(&err),
-//     }
-// }
