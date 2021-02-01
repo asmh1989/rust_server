@@ -1,3 +1,4 @@
+pub mod build_record;
 pub mod mdm45;
 pub mod page_base;
 pub mod project;
@@ -8,43 +9,27 @@ use crate::http_response::{response_error, response_ok, response_success};
 use crate::mysql_find_one;
 use actix_identity::Identity;
 use actix_web::{delete, get, post, web, HttpResponse, Result};
+use build_record::BuildRecordPage;
 use log::info;
 use once_cell::sync::OnceCell;
 use page_base::{NotFoundPage, PageBase};
-use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
-use self::mdm45::Mdm45Page;
 use self::project::ProjectPage;
+use self::{mdm45::Mdm45Page, page_base::QueryInfo};
 
 static PAGES: OnceCell<HashMap<String, Arc<dyn PageBase + Send + Sync>>> = OnceCell::new();
 pub fn init() {
     let mut map: HashMap<String, Arc<dyn PageBase + Send + Sync>> = HashMap::new();
     map.insert("project".to_string(), Arc::new(ProjectPage));
     map.insert("mdm45".to_string(), Arc::new(Mdm45Page));
+    map.insert("versionbuildrecord".to_string(), Arc::new(BuildRecordPage));
+
     let _ = PAGES.set(map);
 }
 
 pub fn get_page() -> &'static HashMap<String, Arc<dyn PageBase + Send + Sync>> {
     PAGES.get().unwrap()
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct ListData<T> {
-    #[serde(rename = "currPage")]
-    pub current_page: u32,
-    #[serde(rename = "pageSize")]
-    pub page_size: u32,
-    #[serde(rename = "pageTotal")]
-    pub total: u64,
-    #[serde(rename = "list")]
-    pub page_list: Vec<T>,
-}
-
-#[derive(Deserialize, Debug)]
-pub struct QueryInfo {
-    pub limit: u32,
-    pub page: u32,
 }
 
 pub async fn check_user(id: Identity) -> Result<String, String> {
@@ -64,11 +49,11 @@ pub async fn check_user(id: Identity) -> Result<String, String> {
 }
 
 #[inline]
-async fn _query(mode: &str, limit: u32, index: u32) -> Result<Value, String> {
+async fn _query(mode: &str, info: &QueryInfo) -> Result<Value, String> {
     let page = get_page();
     match page.get(mode).clone() {
-        Some(p) => p.query(limit, index).await,
-        None => NotFoundPage.query(limit, index).await,
+        Some(p) => p.query(info).await,
+        None => NotFoundPage.query(info).await,
     }
 }
 
@@ -97,7 +82,7 @@ pub async fn query(
     info!("query info {:?}!", info);
 
     match check_user(id).await {
-        Ok(_) => match _query(&page.into_inner().0, info.limit, info.page).await {
+        Ok(_) => match _query(&page.into_inner().0, &info).await {
             Ok(d) => response_ok(d),
             Err(err) => response_error(&err),
         },

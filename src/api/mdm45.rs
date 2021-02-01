@@ -10,7 +10,7 @@ use crate::{
     mysql_query, result_err,
 };
 
-use super::{page_base::PageBase, ListData};
+use super::page_base::{ListData, PageBase, QueryInfo};
 
 #[derive(sqlx::FromRow, Debug, Serialize, Deserialize, Clone)]
 pub struct Version {
@@ -33,8 +33,8 @@ pub struct Mdm45Page;
 #[async_trait]
 impl PageBase for Mdm45Page {
     #[inline]
-    async fn query(&self, limit: u32, page: u32) -> Result<Value, String> {
-        _query(limit, page).await
+    async fn query(&self, info: &QueryInfo) -> Result<Value, String> {
+        _query(info.limit, info.page).await
     }
 
     async fn update(&self, user: &str, params: &str) -> Result<(), String> {
