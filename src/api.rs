@@ -1,5 +1,6 @@
 pub mod build_record;
 pub mod mdm45;
+pub mod mdm45_config;
 pub mod page_base;
 pub mod project;
 
@@ -11,6 +12,7 @@ use actix_identity::Identity;
 use actix_web::{delete, get, post, web, HttpResponse, Result};
 use build_record::BuildRecordPage;
 use log::info;
+use mdm45_config::Mdm45ConfigPage;
 use once_cell::sync::OnceCell;
 use page_base::{NotFoundPage, PageBase};
 use serde_json::Value;
@@ -24,6 +26,7 @@ pub fn init() {
     map.insert("project".to_string(), Arc::new(ProjectPage));
     map.insert("mdm45".to_string(), Arc::new(Mdm45Page));
     map.insert("versionbuildrecord".to_string(), Arc::new(BuildRecordPage));
+    map.insert("versionconfigmdm45".to_string(), Arc::new(Mdm45ConfigPage));
 
     let _ = PAGES.set(map);
 }

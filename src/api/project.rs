@@ -34,7 +34,10 @@ pub struct ProjectPage;
 impl PageBase for ProjectPage {
     #[inline]
     async fn query(&self, info: &QueryInfo) -> Result<Value, String> {
-        _query(info.limit, info.page).await
+        let limit = info.limit.or(Some(20)).unwrap();
+        let page = info.page.or(Some(1)).unwrap();
+
+        _query(limit, page).await
     }
 
     async fn update(&self, user: &str, params: &str) -> Result<(), String> {

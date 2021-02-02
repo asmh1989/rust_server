@@ -39,6 +39,9 @@ impl PageBase for BuildRecordPage {
     async fn query(&self, info: &super::page_base::QueryInfo) -> Result<serde_json::Value, String> {
         let mut w = r#"config_tag is not null and build_result is not null"#.to_string();
 
+        let limit = info.limit.or(Some(20)).unwrap();
+        let page = info.page.or(Some(1)).unwrap();
+
         if info.project.is_some() {
             w = format!("{} and project_id={}", w, info.project.unwrap());
         }
@@ -59,8 +62,8 @@ from tb_version_build_record where  {}
                 order by id desc"#,
                 &w
             ),
-            info.limit,
-            info.page,
+            limit,
+            page,
         )?;
 
         let mut data: Vec<BuildRecord> = Vec::new();
@@ -75,8 +78,8 @@ from tb_version_build_record where  {}
         mysql_query!(BuildRecord, data, &sql)?;
 
         Ok(serde_json::to_value(ListData::<BuildRecord> {
-            current_page: info.page,
-            page_size: info.limit,
+            current_page: page,
+            page_size: limit,
             total: count,
             page_list: data,
         })

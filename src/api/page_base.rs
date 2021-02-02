@@ -17,8 +17,8 @@ pub struct ListData<T> {
 
 #[derive(Deserialize, Debug)]
 pub struct QueryInfo {
-    pub limit: u32,
-    pub page: u32,
+    pub limit: Option<u32>,
+    pub page: Option<u32>,
     #[serde(rename = "s_version")]
     pub version: Option<String>,
     #[serde(rename = "s_project")]
