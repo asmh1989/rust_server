@@ -23,6 +23,7 @@ pub struct QueryInfo {
     pub version: Option<String>,
     #[serde(rename = "s_project")]
     pub project: Option<u32>,
+    pub query: Option<String>,
 }
 
 #[async_trait]

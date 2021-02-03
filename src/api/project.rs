@@ -34,10 +34,7 @@ pub struct ProjectPage;
 impl PageBase for ProjectPage {
     #[inline]
     async fn query(&self, info: &QueryInfo) -> Result<Value, String> {
-        let limit = info.limit.or(Some(20)).unwrap();
-        let page = info.page.or(Some(1)).unwrap();
-
-        _query(limit, page).await
+        _query(info).await
     }
 
     async fn update(&self, user: &str, params: &str) -> Result<(), String> {
@@ -52,23 +49,40 @@ impl PageBase for ProjectPage {
 }
 
 #[inline]
-async fn _query(limit: u32, page: u32) -> Result<Value, String> {
+async fn _query(info: &QueryInfo) -> Result<Value, String> {
+    let limit = info.limit.or(Some(20)).unwrap();
+    let page = info.page.or(Some(1)).unwrap();
+
+    let mut w = "is_delete is null and name is not null".to_string();
+
+    if info.query.is_some() {
+        w = format!(
+            "{} and name like concat('%{}%') ",
+            w,
+            info.query.clone().unwrap()
+        );
+    }
+
     let sql = sql_page_str(
-        r#"
+        &format!(
+            r#"
     select project_id, no, name, status, create_time, create_user, update_time, update_user, version_svn_url
-    from tb_project where is_delete is null  or  is_delete != 'Y' and name is not null
+    from tb_project where {}
     order by project_id desc 
             "#,
+            w
+        ),
         limit,
         page,
     )?;
 
     let mut data: Vec<Project> = Vec::new();
 
-    let count = count(
+    let count = count(&format!(
         "SELECT COUNT(project_id) FROM tb_project 
-        where is_delete is null  or  is_delete != 'Y' and name is not null",
-    )
+        where {}",
+        w
+    ))
     .await?;
 
     mysql_query!(Project, data, &sql)?;
