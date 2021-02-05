@@ -3,7 +3,7 @@
 use actix_identity::{CookieIdentityPolicy, Identity, IdentityService};
 use actix_web::{
     error::{InternalError, JsonPayloadError, QueryPayloadError},
-    middleware::Logger,
+    middleware::{self, Logger},
     post, web, App, Error, HttpRequest, HttpResponse, HttpServer, Responder,
 };
 
@@ -25,13 +25,6 @@ mod utils;
 async fn hello(req_body: String) -> impl Responder {
     info!("test response data = {}", req_body);
     response_ok(Value::String("hello world".to_string()))
-}
-
-async fn index(id: Identity) -> String {
-    format!(
-        "Hello {}",
-        id.identity().unwrap_or_else(|| "Anonymous".to_owned())
-    )
 }
 
 async fn login(id: Identity, params: web::Json<LoginParams>) -> HttpResponse {
@@ -72,6 +65,7 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new()
             .wrap(Logger::new("%U %s %D"))
+            .wrap(middleware::DefaultHeaders::new().header("Content-Type", "application/json"))
             .app_data(web::JsonConfig::default().error_handler(post_error))
             .app_data(web::QueryConfig::default().error_handler(query_error))
             .wrap(IdentityService::new(
@@ -80,7 +74,7 @@ async fn main() -> std::io::Result<()> {
                     .secure(false),
             ))
             .service(hello)
-            .service(web::resource("/jpm").route(web::get().to(index)))
+            // .service(web::resource("/jpm")
             .service(
                 web::scope("/jpm")
                     .service(web::resource("/login").route(web::post().to(login)))
@@ -89,6 +83,7 @@ async fn main() -> std::io::Result<()> {
                     .service(api::delete)
                     .service(api::query),
             )
+            .service(actix_files::Files::new("/", "web").index_file("index.html"))
     })
     .bind(format!("0.0.0.0:{}", 8080))?
     .run()
