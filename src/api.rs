@@ -6,8 +6,11 @@ pub mod project;
 
 use std::{collections::HashMap, sync::Arc};
 
-use crate::http_response::{response_error, response_ok, response_success};
 use crate::mysql_find_one;
+use crate::{
+    http_response::{response_error, response_error2, response_ok, response_success},
+    response_auth_err,
+};
 use actix_identity::Identity;
 use actix_web::{delete, get, post, web, HttpResponse, Result};
 use build_record::BuildRecordPage;
@@ -89,7 +92,7 @@ pub async fn query(
             Ok(d) => response_ok(d),
             Err(err) => response_error(&err),
         },
-        Err(err) => response_error(&err),
+        Err(err) => response_auth_err!(err),
     }
 }
 
@@ -100,7 +103,7 @@ pub async fn update(id: Identity, page: web::Path<(String,)>, req_body: String) 
             Ok(_) => response_success("成功"),
             Err(err) => response_error(&err),
         },
-        Err(err) => response_error(&err),
+        Err(err) => response_auth_err!(err),
     }
 }
 
@@ -112,6 +115,6 @@ pub async fn delete(id: Identity, path: web::Path<(String, u32)>) -> HttpRespons
             Ok(_) => response_success("成功"),
             Err(err) => response_error(&err),
         },
-        Err(err) => response_error(&err),
+        Err(err) => response_auth_err!(err),
     }
 }
